@@ -35,7 +35,6 @@ def remove_flip_elements(perms):
 
 # Python program to print all permutations with
 # duplicates allowed
- 
 def toString(List):
     return ''.join(List)
  
@@ -125,9 +124,3 @@ def store_perms_in_dict(perms):
     for perm in perms:
         new_perms[perm] = perm
     return new_perms
-
-'''
-perms = get_perms_from_file(10)
-perms = remove_flip_elements(perms)
-store_permutations(perms, 10, "flip_perms_")
-'''

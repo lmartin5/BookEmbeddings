@@ -1,4 +1,4 @@
-"""GraphManager.py
+"""MobiusGraph.py
 @author lmartin5
 
 This file contains the MobiusGraph class. It represents a one-page Mobius
