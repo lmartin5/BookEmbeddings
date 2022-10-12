@@ -9,7 +9,7 @@ embedding, or only search a few.
 import sys
 import itertools
 from MobiusGraph import MobiusGraph
-from KleinGraph import KleinGraph
+# from KleinGraph import KleinGraph
 import Permutations
 
 def find_mobius_embedding_with_permutation(perm, edgeSet):
@@ -66,26 +66,26 @@ def create_complete_graph_edge_set(numVertices):
 
     return edgeSet
 
-def find_klein_embedding_with_permutation(perm, edgeSet):
-    genA = KleinGraph(perm, edgeSet)
-    genA.place_free_edges()
-    graphs = [genA]
+# def find_klein_embedding_with_permutation(perm, edgeSet):
+#     genA = KleinGraph(perm, edgeSet)
+#     genA.place_free_edges()
+#     graphs = [genA]
 
-    while len(graphs) > 0:
-        new_graphs = []
-        for graph in graphs:
-            if graph.is_graph_placed():
-                return graph
-            if not graph.is_possible_to_embedd():
-                continue
+#     while len(graphs) > 0:
+#         new_graphs = []
+#         for graph in graphs:
+#             if graph.is_graph_placed():
+#                 return graph
+#             if not graph.is_possible_to_embedd():
+#                 continue
             
-            next_edge = graph.remainingEdges[0]
-            avail_edges = graph.get_available_edges(next_edge)
+#             next_edge = graph.remainingEdges[0]
+#             avail_edges = graph.get_available_edges(next_edge)
 
-            for edge in avail_edges:
-                new_graph = graph.copy()
-                new_graph.place_edge(edge[0][0], edge[0][1], edge[1])
-                new_graphs.append(new_graph)
-        graphs = new_graphs
+#             for edge in avail_edges:
+#                 new_graph = graph.copy()
+#                 new_graph.place_edge(edge[0][0], edge[0][1], edge[1])
+#                 new_graphs.append(new_graph)
+#         graphs = new_graphs
 
-    return -1
+#     return -1
