@@ -6,6 +6,7 @@ used to search for one-page Mobius book embeddings of a graph. It also contains 
 looking for an embedding for one permutation.
 """
 
+from KleinGraph import KleinGraph
 from MobiusGraph import MobiusGraph
 import Permutations
 import GraphManager
@@ -23,6 +24,13 @@ def main():
     # perms = Permutations.remove_flip_elements(perms)
     # Permutations.store_permutations(perms, 7, "flip_perms_")
     # perms = Permutations.get_perms_from_file(7, "flip_perms_")
+    # perms = Permutations.strings_to_perms(perms)
+
+    # Permutations.generate_permutations_to_file(8)
+    # perms = Permutations.get_perms_from_file(8)
+    # perms = Permutations.remove_flip_elements(perms)
+    # Permutations.store_permutations(perms, 8, "flip_perms_")
+    # perms = Permutations.get_perms_from_file(8, "flip_perms_")
     # perms = Permutations.strings_to_perms(perms)
     
     # K6 is embeddable in a Mobius Book
@@ -123,36 +131,9 @@ def main():
 
     perms = Permutations.get_perms_from_file(7, "flip_perms_")
     perms = Permutations.strings_to_perms(perms)
-    spine = [1, 2, 3, 4, 5, 6, 7]
+    spine = [1, 2, 3, 4, 5, 6, 7, 8]
     edges = GraphManager.create_complete_graph_edge_set(7)
-    
-    from KleinGraph import KleinGraph
-    genA = KleinGraph(spine, edges)
-    genA.place_free_edges()
-    print(genA)
-
-    # while len(graphs) > 0:
-    #     new_graphs = []
-    #     for graph in graphs:
-    #         if graph.is_graph_placed():
-    #             return graph
-    #         if not graph.is_possible_to_embedd():
-    #             continue
-            
-    #         next_edge = graph.remainingEdges[0]
-    #         avail_edges = graph.get_available_edges(next_edge)
-
-    #         for edge in avail_edges:
-    #             new_graph = graph.copy()
-    #             new_graph.place_edge(edge[0][0], edge[0][1], edge[1])
-    #             new_graphs.append(new_graph)
-    #     graphs = new_graphs
-    
-    
-    # graph = GraphManager.find_klein_embedding_with_permutation(spine, edges)
-    # print(graph)
-
-
-
+    graph = GraphManager.find_torus_embedding(edges, perms)
+    print(graph)
 
 main()

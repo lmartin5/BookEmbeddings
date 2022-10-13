@@ -1,19 +1,19 @@
-"""KleinGraph.py
+"""TorusGraph.py
 @author lmartin5
 
-This file contains the KleinGraph class. It represents a one-page Klein bottle
+This file contains the TorusGraph class. It represents a one-page Torus
  book embedding of a graph. It is used in GraphManger to see if a graph
-is one page Klein book embeddable and gives the embedding if it is.
+is one page Torus book embeddable and gives the embedding if it is.
 """
 
 import copy
 
-class KleinGraph():
+class TorusGraph():
 
     def __init__(self, perm, edgeSet):
         self.verts = len(perm)
         self.top_spine = perm
-        self.bottom_spine = perm[::-1]
+        self.bottom_spine = perm.copy()
         self.addedEdges = []
         self.remainingEdges = edgeSet
         self.availableEdges = []
