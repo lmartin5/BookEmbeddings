@@ -13,7 +13,11 @@ from KleinGraph import KleinGraph
 from TorusGraph import TorusGraph
 import Permutations
 
+from multiprocessing import Pool, cpu_count
+from functools import partial
+
 def find_mobius_embedding_with_permutation(perm, edgeSet):
+    edgeSet = edgeSet.copy()
     genA = MobiusGraph(perm, edgeSet)
     genA.place_free_edges()
     graphs = [genA]
@@ -48,20 +52,25 @@ def find_mobius_embedding(edgeSet, perms=None, vertices=None, file_prefix="flip_
     counter = 0
     num_perms = len(perms)
     backspaces = ""
-    for perm in perms:
-        progress_message = backspaces + "Graphs Completed: " + str(counter) + " / " + str(num_perms)
-        print(progress_message, end="", flush=True)
-        backspaces = len(progress_message) * "\b"
+    progress_message = backspaces + "Graphs Completed: " + str(counter) + " / " + str(num_perms)
+    print(progress_message, end="", flush=True)
+    backspaces = len(progress_message) * "\b"
 
-        newEdgeSet = edgeSet.copy()
-        graph = find_mobius_embedding_with_permutation(perm, newEdgeSet)
-        counter += 1
-        if graph == -1:
-            continue
-        else:
-            return graph
+    final_graph = -1
+    with Pool(cpu_count() - 2) as pool:
+        for graph in pool.imap_unordered(partial(find_mobius_embedding_with_permutation, edgeSet=edgeSet), perms):
+            counter += 1
+            progress_message = backspaces + "Graphs Completed: " + str(counter) + " / " + str(num_perms)
+            print(progress_message, end="", flush=True)
+            backspaces = len(progress_message) * "\b"
 
-    return graph
+            if graph == -1:
+                continue
+            else:
+                final_graph = graph
+                break
+
+    return final_graph
 
 def create_complete_graph_edge_set(numVertices):
     edgeSet = []

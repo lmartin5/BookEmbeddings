@@ -6,6 +6,8 @@ of numbers 1 - n. These permuations are then used with GraphManager
 to search for one-page book embeddings of graphs.
 """
 
+import os
+PERM_LOCATION = "Permutations"
 
 def find_and_remove_flip(line, lines):
     reverse = line[::-1]
@@ -15,7 +17,7 @@ def find_and_remove_flip(line, lines):
         return
 
 def get_perms_from_file(num_elements, file_prefix="permutations_"):
-    infile = open(file_prefix + str(num_elements) + ".txt", "r")
+    infile = open(os.path.join(PERM_LOCATION, file_prefix + str(num_elements) + ".txt"), "r")
     lines = infile.readlines()
     infile.close()
 
@@ -55,7 +57,7 @@ def permute(a, l, r, outfile):
 
 # Driver program to test the above function
 def generate_permutations_to_file(num_elements):
-    outfile = open("permutations_" + str(num_elements) + ".txt", "w")
+    outfile = open(os.path.join(PERM_LOCATION,"permutations_" + str(num_elements) + ".txt"), "w")
     string = ""
     for i in range(1, num_elements + 1):
         if i < 10:
@@ -70,7 +72,7 @@ def generate_permutations_to_file(num_elements):
 # This code is contributed by Bhavya Jain
 
 def store_permutations(perms, num_elements, file_prefix="permutations_"):
-    outfile = open(file_prefix + str(num_elements) + ".txt", "w")
+    outfile = open(os.path.join(PERM_LOCATION,file_prefix + str(num_elements) + ".txt"), "w")
     for perm in perms:
         outfile.write(perm + "\n")
     outfile.close()

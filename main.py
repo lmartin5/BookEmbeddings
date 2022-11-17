@@ -10,12 +10,14 @@ from KleinGraph import KleinGraph
 from MobiusGraph import MobiusGraph
 import Permutations
 import GraphManager
+from copy import deepcopy
+from multiprocessing import freeze_support
 
 def main():
-    # Permutations.generate_permutations_to_file(6)
-    # perms = Permutations.get_perms_from_file(6)
+    # Permutations.generate_permutations_to_file(10)
+    # perms = Permutations.get_perms_from_file(10)
     # perms = Permutations.remove_flip_elements(perms)
-    # Permutations.store_permutations(perms, 6, "flip_perms_")
+    # Permutations.store_permutations(perms, 10, "flip_perms_")
     # perms = Permutations.get_perms_from_file(6, "flip_perms_")
     # perms = Permutations.strings_to_perms(perms)
     
@@ -129,11 +131,46 @@ def main():
     print(edges)
     '''
 
-    perms = Permutations.get_perms_from_file(7, "flip_perms_")
-    perms = Permutations.strings_to_perms(perms)
-    spine = [1, 2, 3, 4, 5, 6, 7, 8]
-    edges = GraphManager.create_complete_graph_edge_set(7)
-    graph = GraphManager.find_torus_embedding(edges, perms)
-    print(graph)
+    # perms = Permutations.get_perms_from_file(8, "flip_perms_")
+    # perms = Permutations.strings_to_perms(perms)
+    # spine = [1, 2, 3, 4, 5, 6, 7, 8]
 
-main()
+    # rotation_elements = \
+    #     [[1, 2, 3, 4, 5, 6, 7, 8],
+    #     [8, 1, 2, 3, 4, 5, 6, 7],
+    #     [7, 8, 1, 2, 3, 4, 5, 6],
+    #     [6, 7, 8, 1, 2, 3, 4, 5],
+    #     [5, 6, 7, 8, 1, 2, 3, 4],
+    #     [4, 5, 6, 7, 8, 1, 2, 3],
+    #     [3, 4, 5, 6, 7, 8, 1, 2],
+    #     [2, 3, 4, 5, 6, 7, 8, 1]]
+
+    # edges = [(1,2), (2, 3), (3,4), (4, 5), (5, 6), (6, 7), (7, 8), 
+    #          (1,3), (2, 4), (3, 5), (4, 6), (5, 7), (6, 8), 
+    #          (1, 4), (2, 5), (3, 6), (4, 7), (5, 8), (1, 6), (2, 7), (3, 7), (1, 7), (2, 8), (1, 8)]
+
+
+    # graph = GraphManager.find_klein_embedding(edges, rotation_elements)
+    # print(graph)
+
+    # perms = Permutations.get_perms_from_file(10, "flip_perms_")
+    # perms = Permutations.strings_to_perms(perms)
+
+    # # mobius ladder
+    # edges = [(1, 3), (3, 5), (5, 7), (7, 9), (2, 9), (2, 4), (4, 6), (6, 8), (8, 10), (1, 10),
+    #           (1,2), (3, 4), (5, 6), (7, 8), (9, 10)]
+
+    # # klein ladder
+    # edges = [(1, 3), (3, 5), (5, 7), (7, 9), (2, 9), (2, 4), (4, 6), (6, 8), (8, 10), (1, 10),
+    #         (1,2), (3, 4), (5, 6), (7, 8), (9, 10),
+    #         (1,4), (3,6), (5,8), (7,10), (2,3), (4,5), (6,7), (8,9)]
+
+
+    # graph = GraphManager.find_mobius_embedding(edges, perms)
+    # # graph = GraphManager.find_klein_embedding(edges, perms)
+    # print()
+    # print(graph)
+
+if __name__=="__main__":
+    freeze_support()
+    main()
