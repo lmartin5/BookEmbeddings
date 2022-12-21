@@ -8,6 +8,7 @@ looking for an embedding for one permutation.
 
 from KleinGraph import KleinGraph
 from MobiusGraph import MobiusGraph
+from BookEmbedding import BookEmbedding
 import Permutations
 import GraphManager
 from copy import deepcopy
@@ -170,6 +171,13 @@ def main():
     # # graph = GraphManager.find_klein_embedding(edges, perms)
     # print()
     # print(graph)
+
+    perms = Permutations.get_perms_from_file(9, "dihedral_perms_")
+    perms = Permutations.strings_to_perms(perms)
+    edges = [(1, 2), (1, 3), (1, 4), (1, 7), (2, 3), (2, 6), (2, 9), (3, 5), (3, 8), (4, 7), (4, 8), (4, 9), (5, 6), (5, 7), (5, 8), (5, 9), (6, 7), (6, 8), (6, 9), (8, 9)]
+
+    graph = GraphManager.find_book_embedding(edges, perms)
+    print(graph)
 
 if __name__=="__main__":
     freeze_support()

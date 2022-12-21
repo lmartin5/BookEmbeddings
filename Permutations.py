@@ -7,6 +7,7 @@ to search for one-page book embeddings of graphs.
 """
 
 import os
+from copy import copy
 PERM_LOCATION = "Permutations"
 
 def find_and_remove_flip(line, lines):
@@ -15,6 +16,32 @@ def find_and_remove_flip(line, lines):
         del lines[reverse]
     except:
         return
+
+def find_and_remove_rotations(line, lines):
+    rotation = line
+
+    for i in range(len(line) - 1):
+        rotation = rotation[-1] + rotation[0:-1]
+        try:
+            del lines[rotation]
+        except:
+            return
+
+def find_and_remove_dihedrals(line, lines):
+    rotation = line
+    find_and_remove_flip(line, lines)
+
+    for i in range(len(line) - 1):
+        rotation = rotation[-1] + rotation[0:-1]
+        try:
+            del lines[rotation]
+        except:
+            pass
+        flip = rotation[::-1]    
+        try:
+            del lines[flip]
+        except:
+            return
 
 def get_perms_from_file(num_elements, file_prefix="permutations_"):
     infile = open(os.path.join(PERM_LOCATION, file_prefix + str(num_elements) + ".txt"), "r")
@@ -31,6 +58,26 @@ def remove_flip_elements(perms):
     for perm_value in list(perms_dict):
         if perm_value in perms_dict:
             find_and_remove_flip(perm_value, perms_dict)
+            count = count + 1        
+    perms = list(perms_dict.values())
+    return perms
+
+def remove_rotation_elements(perms):
+    perms_dict = store_perms_in_dict(perms)
+    count = 0
+    for perm_value in list(perms_dict):
+        if perm_value in perms_dict:
+            find_and_remove_rotations(perm_value, perms_dict)
+            count = count + 1        
+    perms = list(perms_dict.values())
+    return perms
+
+def remove_dihedral_elements(perms):
+    perms_dict = store_perms_in_dict(perms)
+    count = 0
+    for perm_value in list(perms_dict):
+        if perm_value in perms_dict:
+            find_and_remove_dihedrals(perm_value, perms_dict)
             count = count + 1        
     perms = list(perms_dict.values())
     return perms

@@ -9,6 +9,7 @@ embedding, or only search a few.
 import sys
 import itertools
 from MobiusGraph import MobiusGraph
+from BookEmbedding import BookEmbedding
 from KleinGraph import KleinGraph
 from TorusGraph import TorusGraph
 import Permutations
@@ -19,6 +20,66 @@ from functools import partial
 def find_mobius_embedding_with_permutation(perm, edgeSet):
     edgeSet = edgeSet.copy()
     genA = MobiusGraph(perm, edgeSet)
+    genA.place_free_edges()
+    graphs = [genA]
+
+    while len(graphs) > 0:
+        new_graphs = []
+        for graph in graphs:
+            if graph.is_graph_placed():
+                return graph
+            if not graph.is_possible_to_embedd():
+                continue
+            
+            next_edge = graph.remainingEdges[0]
+            avail_edges = graph.get_available_edges(next_edge)
+
+            for edge in avail_edges:
+                new_graph = graph.copy()
+                new_graph.place_edge(edge[0][0], edge[0][1], edge[1])
+                new_graphs.append(new_graph)
+        graphs = new_graphs
+
+    return -1
+
+def find_book_embedding(edgeSet, perms=None, vertices=None, file_prefix="flip_perms_"):
+    if perms == None:
+        if vertices == None: 
+            print("When perms are not specified, the number of vertices must also be given.")
+            print("find_klein_embedding(edgeSet, perms=None, vertices=None, file_prefix=\"flip_perms_\")")
+            sys.exit()
+        perms = Permutations.get_perms_from_file(vertices, file_prefix)
+        perms = Permutations.strings_to_perms(perms)
+    
+    counter = 0
+    num_perms = len(perms)
+    backspaces = ""
+
+    num_pages = 3
+    while (True):
+        print("Testing for " + str(num_pages) + "-page embeddings...")
+
+        for perm in perms:
+            progress_message = backspaces + "Graphs Completed: " + str(counter) + " / " + str(num_perms)
+            print(progress_message, end="", flush=True)
+            backspaces = len(progress_message) * "\b"
+
+            newEdgeSet = edgeSet.copy()
+            graph = find_book_embedding_with_permutation(perm, newEdgeSet, num_pages)
+            counter += 1
+            if graph == -1:
+                continue
+            else:
+                print()
+                return graph
+
+        print()
+        counter = 0
+        num_pages += 1
+
+def find_book_embedding_with_permutation(perm, edgeSet, numberPages=1):
+    edgeSet = edgeSet.copy()
+    genA = BookEmbedding(perm, edgeSet, numberPages)
     genA.place_free_edges()
     graphs = [genA]
 
