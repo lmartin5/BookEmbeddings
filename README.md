@@ -22,7 +22,7 @@ This README.md file contains basic information about this project and instructio
 The files contained in this repository were used to assist in finding $1$-page generalized book embeddings of graphs. The paper for which it assisted is titled "Klein Book Embeddings" which has the following abstract
 
  >Book embeddings of graphs have been the subject of extensive study. The definitions of such
-    embeddings have been generalized by allowing pages to be cylinders, tori, and M\"obius bands rather than half-
+    embeddings have been generalized by allowing pages to be cylinders, tori, and M\"{o}bius bands rather than half-
     planes. In this paper, we consider book pages as Klein bottles. We give an application of these Klein books
     and edge bounds for graphs embeddable in the books. We conclude with optimal Klein book embeddings
     of some families of graphs.
