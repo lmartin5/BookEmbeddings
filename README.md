@@ -22,12 +22,12 @@ This README.md file contains basic information about this project and instructio
 The files contained in this repository were used to assist in finding $1$-page generalized book embeddings of graphs. The paper for which it assisted is titled "Klein Book Embeddings" which has the following abstract
 
  >Book embeddings of graphs have been the subject of extensive study. The definitions of such
-    embeddings have been generalized by allowing pages to be cylinders, tori, and M\"{o}bius bands rather than half-
+    embeddings have been generalized by allowing pages to be cylinders, tori, and M&#246;bius bands rather than half-
     planes. In this paper, we consider book pages as Klein bottles. We give an application of these Klein books
     and edge bounds for graphs embeddable in the books. We conclude with optimal Klein book embeddings
     of some families of graphs.
 
-  This code can search for valid $1$-page embeddings for cylinder, torus, M\"obius, and Klein books across the space of possible vertex spine orderings. Because the number of possible orderings grows at a factorial rate, this code only works well for graphs of 11 vertices or less. Book embeddings are found in a somewhat naive manner, and future work could be done to improve the efficiency of the algorithm. 
+  This code can search for valid $1$-page embeddings for cylinder, torus, M&#246;bius, and Klein books across the space of possible vertex spine orderings. Because the number of possible orderings grows at a factorial rate, this code only works well for graphs of 11 vertices or less. Book embeddings are found in a somewhat naive manner, and future work could be done to improve the efficiency of the algorithm. 
 
 ## Requirements
 
